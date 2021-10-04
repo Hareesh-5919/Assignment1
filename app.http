@@ -1,0 +1,52 @@
+
+POST http://localhost:3007/register/
+Content-Type: application/json
+
+{
+    "id":2,
+  "username": "sudharshan10",
+  "name": "sudharshan",
+  "contact": 901030990,
+  "password": "sudharshan@10"
+}
+###
+
+
+
+
+post http://localhost:3007/login/
+Content-Type: application/json
+
+{
+  "username": "sudharshan10",
+  "password": "sudharshan@10"
+}
+###
+
+
+
+
+GET http://localhost:3007/users/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhhcmVlc2gxMCIsImlhdCI6MTYzMzM2NDU0NH0.h25qAnATgtId1eZZXkAmw4Thv8wSPhs-p0fGAG9NIlc
+###
+
+
+
+
+PUT http://localhost:3007/updateuserinfo/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhhcmVlc2gxMCIsImlhdCI6MTYzMzM2NzE4Mn0.TvCvcC8nOpT55KpwlHoU5YF5lfgRkkPXSAnzEe0NuqI
+
+{
+    "username": "sudharshan10",
+    "contact": 9999810799
+}
+###
+
+
+
+
+DELETE http://localhost:3007/deleteuser/sudharshan10 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5pa2hpbDEwIiwiaWF0IjoxNjMzMzY2MTA1fQ.p5xWQ867tnzFcgv5wVnNN3YFUH1CbOx5oiRoO5Tz4ZM
+###
+

@@ -54,25 +54,8 @@ function authenticateToken(request, response, next) {
   }
 }
 
-app.post("/login/", async (req, res) => {
-  const {username, password} = req.body;
-  const dbUserQuery = `SELECT * FROM users WHERE username = '${username}';`;
-  const dbUser = await database.get(dbUserQuery);
-  if (dbUser === undefined) {
-    res.send("Invalid User");
-  } else {
-    const verifyPassword = await bcrypt.compare(password, dbUser.password);
-    if(verifyPassword === true) {
-      const payload = {
-        username: username,
-      };
-      const jwtToken = jwt.sign(payload, "MY_SECRET_TOKEN");
-      res.send(`Login Success!!   authentication token: ${jwtToken}`);
-    } else {
-      res.send("Invalid Password");
-    }
-  }
-})
+
+
 
 app.post("/register/", async (request, response) => {
   const { id, username, name, password, contact } = request.body;
@@ -102,6 +85,32 @@ app.post("/register/", async (request, response) => {
 });
 
 
+
+
+
+app.post("/login/", async (req, res) => {
+  const {username, password} = req.body;
+  const dbUserQuery = `SELECT * FROM users WHERE username = '${username}';`;
+  const dbUser = await database.get(dbUserQuery);
+  if (dbUser === undefined) {
+    res.send("Invalid User");
+  } else {
+    const verifyPassword = await bcrypt.compare(password, dbUser.password);
+    if(verifyPassword === true) {
+      const payload = {
+        username: username,
+      };
+      const jwtToken = jwt.sign(payload, "MY_SECRET_TOKEN");
+      res.send(`Login Success!!   authentication token: ${jwtToken}`);
+    } else {
+      res.send("Invalid Password");
+    }
+  }
+})
+
+
+
+
 app.get("/users/",authenticateToken, async (request, response) => {
   const {id} = request.params;
   const getUserQuery = `
@@ -112,14 +121,18 @@ app.get("/users/",authenticateToken, async (request, response) => {
 })
 
 
+
+
 app.put("/updateuserinfo/",authenticateToken, async (request, response) => {
   const {username,contact} = request.body;
-  const getUserQuery = `
+  const updateUserQuery = `
     UPDATE users SET contact= ${contact} WHERE username = '${username}';
   `;
-  await database.run(getUserQuery);
+  await database.run(updateUserQuery);
   response.send("contact updated");
 })
+
+
 
 app.delete("/deleteuser/:userName/",authenticateToken, async (request, response) => {
   const {userName} = request.params
